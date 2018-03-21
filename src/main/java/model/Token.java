@@ -2,7 +2,7 @@ package model;
 
 public class Token {
 
-    private String token;
+    private String token = ("1234-1234-1234");
     private String user;
 
 

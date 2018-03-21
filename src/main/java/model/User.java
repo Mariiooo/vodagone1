@@ -2,7 +2,8 @@ package model;
 
 public class User {
 
-    private String user = "meron";
+    private String user = "mario";
+    private String username = "Mario Blautzik";
     private String password = "test";
 
     public String getUser() {
@@ -15,6 +16,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setPassword(String password) {
