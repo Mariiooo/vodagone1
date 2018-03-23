@@ -1,10 +1,9 @@
 package vodagone;
 
 
-import model.LoginRequest;
-import model.LoginResponse;
+import dto.LoginRequest;
+import dto.LoginResponse;
 import model.Token;
-import model.User;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

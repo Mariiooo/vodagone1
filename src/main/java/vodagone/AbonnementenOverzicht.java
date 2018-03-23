@@ -1,6 +1,7 @@
 package vodagone;
 
 
+import dao.AbonnementenDao;
 import model.Abonnement;
 import model.Abonnementen;
 
@@ -16,13 +17,12 @@ public class AbonnementenOverzicht {
     @Consumes("application/json")
     public Response showAbonnementen() {
 
+        // Hier moet ik Model aanroepen die de DAO weer implementeerd en gegevens ophaalt en laat zien
 
-        Abonnementen testabbo = new Abonnementen();
-        testabbo.addAbonnement(new Abonnement(0, "vodafone", "Mobiele telefonie 100"));
-        testabbo.addAbonnement(new Abonnement(1, "vodafone", "Mobiele telefonie 250"));
-        testabbo.addAbonnement(new Abonnement(2, "ziggo", "Kabel-internet (download 300 Mbps"));
+        AbonnementenDao abonnementenDao = new AbonnementenDao();
 
-        return Response.ok(testabbo).build();
+
+        return Response.ok(abonnementenDao.makeAbo()).build();
 
     }
 
@@ -32,6 +32,14 @@ public class AbonnementenOverzicht {
     @Produces("application/json")
     @Consumes("application/json")
     public Response addAbonnementen(@QueryParam("token") String token) {
+
+
+        // chcken welke user bij de token hoort die gebruikt is bij inloggen.
+
+
+
+        // Hier moet ik Model aanroepen die de DAO weer implementeerd en gegevens ophaalt en laat zien
+
 
         Abonnementen testabbo = new Abonnementen();
         testabbo.addAbonnement(new Abonnement(3, "vodafone", "Glasvezel-internet (download 500 Mbps)"));

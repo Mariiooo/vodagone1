@@ -1,4 +1,4 @@
-package model;
+package dto;
 
 public class LoginResponse {
     private String token;

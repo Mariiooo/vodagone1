@@ -1,4 +1,4 @@
-package model;
+package dto;
 
 public class LoginRequest {
     private String user;

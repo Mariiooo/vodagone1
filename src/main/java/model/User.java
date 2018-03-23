@@ -2,9 +2,12 @@ package model;
 
 public class User {
 
+    //Login
     private String user = "mario";
-    private String username = "Mario Blautzik";
     private String password = "test";
+
+    // Account name
+    private String username = "Mario Blautzik";
 
     public String getUser() {
         return user;

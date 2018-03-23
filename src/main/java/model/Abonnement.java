@@ -10,5 +10,10 @@ public class Abonnement {
         this.id = id;
         this.aanbieder = aanbieder;
         this.dienst = dienst;
+
     }
+
+
+
+
 }
