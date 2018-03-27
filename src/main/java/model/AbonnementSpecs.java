@@ -14,7 +14,7 @@ public class AbonnementSpecs {
     private String status;          //The field status should be a string and only contain either "opgezegd", "actief" or "proef".
 
 
-    public void addAbonnementSpecs(int id, String aanbieder, String dienst, String prijs, String startDatum, String verdubbeling, boolean deelbaar, String status) {
+    public AbonnementSpecs(int id, String aanbieder, String dienst, String prijs, String startDatum, String verdubbeling, boolean deelbaar, String status) {
        this.id = id;
        this.aanbieder = aanbieder;
        this.dienst = dienst;
@@ -26,9 +26,67 @@ public class AbonnementSpecs {
     }
 
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getAanbieder() {
+        return aanbieder;
+    }
 
+    public void setAanbieder(String aanbieder) {
+        this.aanbieder = aanbieder;
+    }
 
+    public String getDienst() {
+        return dienst;
+    }
 
+    public void setDienst(String dienst) {
+        this.dienst = dienst;
+    }
+
+    public String getPrijs() {
+        return prijs;
+    }
+
+    public void setPrijs(String prijs) {
+        this.prijs = prijs;
+    }
+
+    public String getStartDatum() {
+        return startDatum;
+    }
+
+    public void setStartDatum(String startDatum) {
+        this.startDatum = startDatum;
+    }
+
+    public String getVerdubbeling() {
+        return verdubbeling;
+    }
+
+    public void setVerdubbeling(String verdubbeling) {
+        this.verdubbeling = verdubbeling;
+    }
+
+    public boolean isDeelbaar() {
+        return deelbaar;
+    }
+
+    public void setDeelbaar(boolean deelbaar) {
+        this.deelbaar = deelbaar;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
