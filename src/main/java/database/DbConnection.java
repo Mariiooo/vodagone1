@@ -27,7 +27,7 @@ public class DbConnection {
             Class.forName(driver).newInstance();
             connection = DriverManager.getConnection(url, username, password);
 
-            System.out.println(  "  Er is connectie met de database" );
+
             return connection;
         } catch (Exception ex) {
             try {

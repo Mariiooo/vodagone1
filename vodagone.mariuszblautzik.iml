@@ -31,5 +31,9 @@
     <orderEntry type="library" name="Maven: com.airhacks:jaxrs-cors:0.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.cedarsoftware:json-io:4.5.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:6.0.6" level="project" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0-m10" level="project" />
+>>>>>>> edf2c68cd78bcaf449616e4933a484db29d49dd9
   </component>
 </module>

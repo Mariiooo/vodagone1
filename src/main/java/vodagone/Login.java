@@ -5,39 +5,30 @@ import dao.UserDAO;
 import dto.LoginRequest;
 import dto.LoginResponse;
 import model.Token;
-import model.User;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("/login")
+@Path("")
 public class Login {
 
     @Inject
     UserDAO userDAO;
-    User users;
 
-
+    @Path("login")
     @POST
-    public Response vodagoneLogin(LoginRequest user){
+    public Response vodagoneLogin(LoginRequest loginUser) {
         Token token = new Token();
 
+        if (loginUser.getUser().equals(userDAO.getUsername(userDAO.getUserId(loginUser.getUser()))) &&
+                loginUser.getPassword().equals(userDAO.getPassword(userDAO.getUserId(loginUser.getUser()))))
 
-       // (user.getUser().equals(userDAO.getUsername(users.getId())) && user.getPassword().equals(userDAO.getPassword(users.getId()))
-
-      //  Osoba ktora sie loguje czy jest to ta sama co jest w bazie danych..!
-
-        if (user.getUser().equals(userDAO.getUsername(1)) && user.getPassword().equals(userDAO.getPassword(1)))
         {
-            System.out.println(userDAO.getUsername(1));
-            System.out.println(userDAO.getPassword(1));
-
-            return Response.ok(new LoginResponse(token.getToken(), user.getUser())).build();
-
-
+            return Response.ok(new LoginResponse(token.getToken(), loginUser.getUser())).build();
         }
+
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 

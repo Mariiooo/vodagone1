@@ -1,24 +1,19 @@
 package dao;
 
 import database.DbConnection;
+import model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public abstract class MainDAO {
 
-
     protected Connection connection;
-
 
     public MainDAO() {
         this.connection = DbConnection.getConnection();
-    }
-
-
-    public Connection getConnection(){
-        return this.connection;
     }
 
     protected void executeUpdate(String query) {
@@ -33,4 +28,9 @@ public abstract class MainDAO {
         }
     }
 
+    protected abstract List<User> executeGetQuery(String query);
+
+    public Connection getConnection(){
+        return this.connection;
+    }
 }

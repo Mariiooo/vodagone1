@@ -10,6 +10,7 @@
           <element id="library" level="project" name="Maven: com.airhacks:jaxrs-cors:0.0.2" />
           <element id="library" level="project" name="Maven: com.cedarsoftware:json-io:4.5.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.6" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0-m10" />
         </element>
       </element>
       <element id="directory" name="META-INF">
