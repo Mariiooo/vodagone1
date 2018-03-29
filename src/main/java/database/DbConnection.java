@@ -19,17 +19,29 @@ public class DbConnection {
         try {
             prop.load(cl.getResourceAsStream("DbConnection.properties"));
 
+
             url = prop.getProperty("jdbc.url");
-            username = prop.getProperty("jdbc.username");
-            password = prop.getProperty("jdbc.password");
+            System.out.println(url);
+
+//            username = prop.getProperty("jdbc.username");
+//            System.out.println(username);
+//
+//            password = prop.getProperty("jdbc.password");
+//            System.out.println(password);
+
             driver = prop.getProperty("jdbc.driverClassName");
+            System.out.println("Driverr           :" +driver);
 
             Class.forName(driver).newInstance();
-            connection = DriverManager.getConnection(url, username, password);
+            System.out.println("ik ben hier              :");
+            connection = DriverManager.getConnection(url);
+            System.out.println("connectie        :" + url);
 
-
+            System.out.println(connection);
             return connection;
         } catch (Exception ex) {
+            ex.printStackTrace();
+
             try {
                 connection.close();
             } catch (Exception e) {

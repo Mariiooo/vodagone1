@@ -16,6 +16,7 @@ public class UserDAO extends MainDAO {
 
     protected List<User> executeGetQuery(String query) {
         List<User> users = new LinkedList<User>();
+
         try {
 
             Statement statement = getConnection().createStatement();
@@ -25,7 +26,7 @@ public class UserDAO extends MainDAO {
             User user;
             while (resultSet.next()) {
                 user = new User();
-                user.setId(Integer.parseInt(resultSet.getString("idUser")));
+                user.setId(resultSet.getInt("idUser"));
                 user.setUser(resultSet.getString("name"));
                 users.add(user);
             }
@@ -47,20 +48,21 @@ public class UserDAO extends MainDAO {
     }
 
 
-    public int getUserId(String name){
-        String query = "SELECT idUser FROM users WHERE name = '" + name + "'";
+    public int getUserIdAndName(int idUser, String name){
+        String query = "SELECT idUser, name FROM users WHERE name = '" +  name  + "' AND idUser = " + idUser;
         return executeGetQuery(query).get(0).getId();
     }
+//
+//    public String getUsername(int idUser) {
+//        String query = "SELECT name FROM users WHERE id = '" + idUser + "'";
+//        return executeGetQuery(query).get(0).getUsername();
+//    }
 
-    public String getUsername(int idUser) {
-        String query = "SELECT name FROM users WHERE id = '" + idUser + "'";
+    public String getPassword(String password) {
+        String query = "SELECT idUser, password FROM users WHERE password = '" +  password;
         return executeGetQuery(query).get(0).getUsername();
     }
 
-    public String getPassword(int idUser) {
-        String query = "SELECT password FROM Users WHERE id = '" + idUser + "'";
-        return executeGetQuery(query).get(0).getUsername();
-    }
 
 
 //    public void addNewUser(String userName) {

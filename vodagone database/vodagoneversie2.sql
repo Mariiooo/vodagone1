@@ -70,12 +70,30 @@ CREATE TABLE `AbonneesAbonnement` (
   PRIMARY KEY (`idAbonneesAbonnement`, `idAbonnementen`, `idAbonnees`))
 ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+CREATE TABLE `Token` (
+  `idToken` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  `token` INT NOT NULL,
+  PRIMARY KEY (`idToken`, `idUser`, `token`))
+ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
 /*
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 */
+
+INSERT INTO `token`(`idToken`, `idUser`,`token`) VALUES (1,1, '1234-1234-1234' )
+INSERT INTO `token`(`idToken`, `idUser`,`token`) VALUES (2,2, '1234-1234-1234' )
+
 
 INSERT INTO `users`(`idUser`, `name`, `password`, `profilename`) VALUES (1,'Mario','test','Mario Blautzik')
 INSERT INTO `users`(`idUser`, `name`, `password`, `profilename`) VALUES (2,'Henk','test','Henk Brouwer')
