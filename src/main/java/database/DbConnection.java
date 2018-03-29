@@ -17,7 +17,7 @@ public class DbConnection {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         Properties prop = new Properties();
         try {
-            prop.load(cl.getResourceAsStream("dbConnection.properties"));
+            prop.load(cl.getResourceAsStream("DbConnection.properties"));
 
             url = prop.getProperty("jdbc.url");
             username = prop.getProperty("jdbc.username");
@@ -27,7 +27,7 @@ public class DbConnection {
             Class.forName(driver).newInstance();
             connection = DriverManager.getConnection(url, username, password);
 
-            System.out.println(  "  Er is connectie met de database" );
+
             return connection;
         } catch (Exception ex) {
             try {
@@ -42,9 +42,3 @@ public class DbConnection {
 
 
 }
-
-
-//            url = "jdbc:mysql://localhost/vodagone" ;
-//            username = "root";
-//            password = "";
-//            driver = "com.mysql.jdbc.Driver";

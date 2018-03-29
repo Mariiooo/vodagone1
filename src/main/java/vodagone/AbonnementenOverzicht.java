@@ -1,7 +1,5 @@
 package vodagone;
 
-
-import dao.AbonnementenDao;
 import model.Abonnement;
 import model.Abonnementen;
 
@@ -12,7 +10,7 @@ import javax.ws.rs.core.Response;
 public class AbonnementenOverzicht {
 
     @GET
-    @Path("/abonnementen")
+    @Path("abonnementen")
     @Produces("application/json")
     @Consumes("application/json")
     public Response showAbonnementen() {
@@ -38,7 +36,7 @@ public class AbonnementenOverzicht {
 
 
     @POST
-    @Path("/abonnementen")
+    @Path("abonnementen")
     @Produces("application/json")
     @Consumes("application/json")
     public Response addAbonnementen(@QueryParam("token") String token) {

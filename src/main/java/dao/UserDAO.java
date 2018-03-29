@@ -5,7 +5,8 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class UserDAO extends MainDAO {
 
@@ -13,48 +14,46 @@ public class UserDAO extends MainDAO {
         super();
     }
 
-
-    protected ArrayList<User> executeGetQuery(String query) {
-        ArrayList<User> users = new ArrayList<User>();
-
+    protected List<User> executeGetQuery(String query) {
+        List<User> users = new LinkedList<User>();
         try {
+
             Statement statement = getConnection().createStatement();
+            System.out.println(" statement  connected??  " + statement);
             ResultSet resultSet = statement.executeQuery(query);
 
             User user;
             while (resultSet.next()) {
                 user = new User();
                 user.setId(Integer.parseInt(resultSet.getString("idUser")));
-                user.setUser(resultSet.getString("userName"));
+                user.setUser(resultSet.getString("name"));
                 users.add(user);
-
             }
             resultSet.close();
             statement.close();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return users;
     }
 
 
-    public ArrayList<User> getAllUsers() {
+    public List<User> getAllUsers() {
 
-        String query = "SELECT * FROM Users";
+        String query = "SELECT * FROM users";
         return executeGetQuery(query);
 
     }
 
 
-    public int getUserId(String userName){
-        String query = "SELECT idUser FROM Users WHERE name = '" + userName + "'";
+    public int getUserId(String name){
+        String query = "SELECT idUser FROM users WHERE name = '" + name + "'";
         return executeGetQuery(query).get(0).getId();
     }
 
-
     public String getUsername(int idUser) {
-        String query = "SELECT name FROM Users WHERE id = '" + idUser + "'";
+        String query = "SELECT name FROM users WHERE id = '" + idUser + "'";
         return executeGetQuery(query).get(0).getUsername();
     }
 
