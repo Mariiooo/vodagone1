@@ -1,9 +1,6 @@
 package dao;
 
 import model.Abonnement;
-import model.Abonnementenduur;
-import model.Dienst;
-import model.Prijzen;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
@@ -11,7 +8,18 @@ import java.util.ArrayList;
 
 public class AbonnementenDAO extends MainDAO {
 
-    private static final String alleAbonnementenOverzicht = "SELECT abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, abonnement.ABONNEMENTSTATUS, abonnement.EINDDATUM, ( SELECT abonnement.IDABONNEE =( SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '1234-1234-1234' ) ) AS AbonnementEigenaar, dienst.NAAM, dienst.IDDIENST, dienst.AANBIEDERNAAM, ( SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST AND prijzen.ABONNEMENTENDUUR = 'maand' ) MaandelijksePrijs, ( SELECT dienst.DEELBAAR -( SELECT COUNT(*) FROM DEELABO DEELABO WHERE DEELABO.IDABONNEMENT = abonnement.IDABONNEMENT ) ) AS AboGedeeld, dienst.VERDUBBELBAAR FROM abonnement abonnement INNER JOIN dienst dienst ON abonnement.IDDIENST = dienst.IDDIENST WHERE abonnement.IDABONNEE =( SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '1234-1234-1234' ) OR abonnement.IDABONNEMENT =( SELECT deelabo.IDABONNEMENT FROM deelabo deelabo WHERE deelabo.IDABONNEE =( SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '1234-1234-1234' ) )";
+    private static final String alleAbonnementenOverzicht = "SELECT abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, " +
+            "abonnement.ABONNEMENTSTATUS, abonnement.EINDDATUM, ( SELECT abonnement.IDABONNEE =( " +
+            "SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '1234-1234-1234' ) ) AS" +
+            " AbonnementEigenaar, dienst.NAAM, dienst.IDDIENST, dienst.AANBIEDERNAAM, ( " +
+            "SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST AND " +
+            "prijzen.ABONNEMENTENDUUR = 'maand' ) MaandelijksePrijs, ( SELECT dienst.DEELBAAR -( SELECT COUNT(*) " +
+            "FROM DEELABO DEELABO WHERE DEELABO.IDABONNEMENT = abonnement.IDABONNEMENT ) ) AS AboGedeeld, " +
+            "dienst.VERDUBBELBAAR FROM abonnement abonnement INNER JOIN dienst dienst ON " +
+            "abonnement.IDDIENST = dienst.IDDIENST WHERE abonnement.IDABONNEE =( SELECT token.IDABONEE " +
+            "FROM token token WHERE token.TOKEN = '1234-1234-1234' ) OR abonnement.IDABONNEMENT =( " +
+            "SELECT deelabo.IDABONNEMENT FROM deelabo deelabo WHERE deelabo.IDABONNEE =( SELECT token.IDABONEE " +
+            "FROM token token WHERE token.TOKEN = '1234-1234-1234' ) )";
 
 
     private static final String alleAbonnementenPerId = "SELECT, abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, abonnement.EINDDATUM, " +
@@ -25,13 +33,13 @@ public class AbonnementenDAO extends MainDAO {
 
     private static final String toevoegenAbonnementen = "INSERT INTO `abonnement`(`IDABONNEE`, `IDDIENST`, `ABONNEMENTENDUUR`, " +
             "`ABONNEMENTSTATUS`, `VERDUBBELD`, `STARTDATUM`, `EINDDATUM`) VALUES (SELECT token.IDABONEE FROM token token " +
-            "WHERE token.TOKEN = '%1$s'), %2$d, 'maand', 'proef', false, NOW(), NULL) ";
+            "WHERE token.TOKEN = '%1$s'), %2$d, 'maand', 'proef', false, CURDATE(), NULL) ";
 
     private static final String updateAbonnementenProefTotActiefQuery = " UPDATE `abonnement` SET `ABONNEMENTSTATUS`= 'actief' " +
-            "WHERE `ABONNEMENTSTATUS` = 'proef' AND DATEDIFF(NOW(), `STARTDATUM`) > 30";
+            "WHERE `ABONNEMENTSTATUS` = 'proef' AND DATEDIFF(CURDATE(), `STARTDATUM`) > 30";
 
     private static final String updateAbonnementenActiefTotOpgezegdQuery = " UPDATE `abonnement` SET `ABONNEMENTSTATUS`= 'opgezegd' " +
-            "WHERE `ABONNEMENTSTATUS` = 'actief' AND DATEDIFF(NOW(), `EINDDATUM`) > 0";
+            "WHERE `ABONNEMENTSTATUS` = 'actief' AND DATEDIFF(CURDATE(), `EINDDATUM`) > 0";
 
     private static final String abonnementenOpzeggenQuery = " UPDATE `abonnement` SET `ABONNEMENTSTATUS`= 'opgezegd' WHERE " +
             "`IDABONNEMENT` = %2$d AND `IDABONNEE` = (SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '%1$s')";
@@ -137,7 +145,7 @@ public class AbonnementenDAO extends MainDAO {
         String einddatum = super.resultSet.getString("einddatum");
         boolean abonnementEigenaar = super.resultSet.getBoolean("abonnementEigenaar");
 
-        return new Abonnement(idAbonnement, abonnementStatus, verdubbeld, startdatum, einddatum, abonnementEigenaar, maakNewDienst());
+        return new Abonnement(idAbonnement, abonnementStatus, verdubbeld, startdatum, einddatum, abonnementEigenaar, dienstDAO.maakNewDienst());
 
     }
 

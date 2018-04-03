@@ -3,12 +3,17 @@ package dao;
 
 import model.Abonnee;
 import model.LoginAndToken;
+import model.Token;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
 
 
 public class UserDAO extends MainDAO {
+
+    @Inject
+    TokenDAO tokenDAO;
+    AbonnementenDAO abonnementenDAO;
 
 
     private static final String SelectUserquery = "SELECT IDABONNEE, NAAM, EMAIL,( SELECT token.TOKEN FROM token token WHERE token.IDABONEE = abonnee.IDABONNEE) AS token FROM abonnee abonnee WHERE IDABONNEE = ( SELECT IDABONEE FROM gebruiker WHERE GEBRUIKERSNAAM = '%1$s' AND WACHTWOORD = '%2$s') ";
@@ -20,8 +25,8 @@ public class UserDAO extends MainDAO {
 
     public LoginAndToken getNewUser(String gebruikersnaam, String wachtwoord) {
 
-     //   new TokenDAO().deleteUserToken();  //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
-    //    new AbonnementenDAO().updateAbonnementenVanGebruiker();
+        tokenDAO.deleteUserToken();  //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
+        abonnementenDAO.updateAbonnementenVanGebruiker(); //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
 
 
         super.selectQuery(String.format(SelectUserquery, gebruikersnaam, wachtwoord));
@@ -40,8 +45,7 @@ public class UserDAO extends MainDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             super.endAllConnections();
         }
 

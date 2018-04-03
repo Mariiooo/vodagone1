@@ -2,8 +2,6 @@ package dao;
 
 import model.Dienst;
 
-import javax.inject.Inject;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,9 +11,6 @@ public class DienstDAO extends MainDAO {
     private static final String alleDienstenOverzicht = "SELECT dienst.IDDIENST, dienst.AANBIEDERNAAM, dienst.NAAM, " +
             "(SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST AND prijzen.ABONNEMENTENDUUR " +
             "= 'maand' )MaandelijkseKosten, dienst.DEELBAAR, dienst.AANBIEDERNAAM FROM dienst dienst";
-
-    @Inject
-    AbonnementenDAO abonnementenDAO;
 
 
     public ArrayList<Dienst> alleDiensten() {
@@ -52,8 +47,6 @@ public class DienstDAO extends MainDAO {
         double prijsVanAbonnement = super.resultSet.getDouble("prijsVanAbonnement");
 
         return new Dienst(idDienst, naam, deelbaar, verdubbelbaar, aanbiederNaam, prijsVanAbonnement);
-
-
     }
 
 
