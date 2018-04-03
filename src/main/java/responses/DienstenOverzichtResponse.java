@@ -2,20 +2,20 @@ package responses;
 
 public class DienstenOverzichtResponse {
 
-    private int idDienst;
-    private String aanbiedernNaam;
-    private String dienstNaam;
+    private int id;
+    private String aanbieder;
+    private String dienst;
 
     public DienstenOverzichtResponse(int idDienst, String aanbiedernNaam, String dienstNaam){
 
-        this.idDienst = idDienst;
-        this.aanbiedernNaam = aanbiedernNaam;
-        this.dienstNaam = dienstNaam;
+        this.id = idDienst;
+        this.aanbieder = aanbiedernNaam;
+        this.dienst = dienstNaam;
     }
 
-    public int getIdDienst()
+    public int getId()
     {
-        return this.idDienst;
+        return this.id;
     }
 
 

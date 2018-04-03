@@ -25,6 +25,7 @@ public class Dienst {
         return aanbiederNaam;
     }
 
+
     public int getIdDienst() {
         return idDienst;
     }

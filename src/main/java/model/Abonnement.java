@@ -8,9 +8,8 @@ public class Abonnement {
     private String startdatum;
     private String einddatum;
     private Dienst idDienst;
-    private Prijzen prijzen;
+    private double abonnementVerdubbelling = 1.5;
     private boolean abonnementEigenaar;
-    private Dienst dienst;
 
 
     public Abonnement(int idAbonnement, String abonnementStatus, int verdubbeld, String startdatum, String einddatum, boolean abonnementEigenaar, Dienst idDienst) {
@@ -30,12 +29,15 @@ public class Abonnement {
     }
 
     public String getNaam() {
-        return dienst.getNaam();
+        return idDienst.getNaam();
     }
 
     public String getAanbieders() {
-        return dienst.getAanbiederNaam();
+        return idDienst.getAanbiederNaam();
     }
+
+
+
 
     public boolean isAbonnementEigenaar() {
         return this.abonnementEigenaar;
@@ -52,7 +54,7 @@ public class Abonnement {
 
     public boolean isDeelbaarAbo(){
 
-        return this.abonnementEigenaar && dienst.getDeelbaar() > 0;
+        return this.abonnementEigenaar && idDienst.getDeelbaar() > 0;
 
     }
 
@@ -101,7 +103,7 @@ public class Abonnement {
 
         double prijs = 0.0;
         if (abonnementStatus.equals(verdubbeld)) {
-            prijs += idDienst.getPrijsVanAbonnement() * prijzen.getVerdubbelingAbonnement();
+            prijs += idDienst.getPrijsVanAbonnement() * abonnementVerdubbelling;
         } else {
             prijs += idDienst.getPrijsVanAbonnement();
 

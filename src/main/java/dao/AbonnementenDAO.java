@@ -1,6 +1,7 @@
 package dao;
 
 import model.Abonnement;
+import model.Dienst;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
@@ -10,24 +11,24 @@ public class AbonnementenDAO extends MainDAO {
 
     private static final String alleAbonnementenOverzicht = "SELECT abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, " +
             "abonnement.ABONNEMENTSTATUS, abonnement.EINDDATUM, ( SELECT abonnement.IDABONNEE =( " +
-            "SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '1234-1234-1234' ) ) AS" +
+            "SELECT token.IDABONEE FROM token token WHERE token.TOKEN = '%1$s' ) ) AS" +
             " AbonnementEigenaar, dienst.NAAM, dienst.IDDIENST, dienst.AANBIEDERNAAM, ( " +
             "SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST AND " +
             "prijzen.ABONNEMENTENDUUR = 'maand' ) MaandelijksePrijs, ( SELECT dienst.DEELBAAR -( SELECT COUNT(*) " +
             "FROM DEELABO DEELABO WHERE DEELABO.IDABONNEMENT = abonnement.IDABONNEMENT ) ) AS AboGedeeld, " +
             "dienst.VERDUBBELBAAR FROM abonnement abonnement INNER JOIN dienst dienst ON " +
             "abonnement.IDDIENST = dienst.IDDIENST WHERE abonnement.IDABONNEE =( SELECT token.IDABONEE " +
-            "FROM token token WHERE token.TOKEN = '1234-1234-1234' ) OR abonnement.IDABONNEMENT =( " +
+            "FROM token token WHERE token.TOKEN = '%1$s' ) OR abonnement.IDABONNEMENT =( " +
             "SELECT deelabo.IDABONNEMENT FROM deelabo deelabo WHERE deelabo.IDABONNEE =( SELECT token.IDABONEE " +
-            "FROM token token WHERE token.TOKEN = '1234-1234-1234' ) )";
+            "FROM token token WHERE token.TOKEN = '%1$s' ) )";
 
 
-    private static final String alleAbonnementenPerId = "SELECT, abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, abonnement.EINDDATUM, " +
-            "abonnement.ABONNEMENTSTATUS(SELECT abonnement.IDABONNEE =(SELECT token.IDABONEE FROM token token WHERE token.TOKEN ='%1$s')) AS AbonnementEigenaar, " +
+    private static final String alleAbonnementenPerId = "SELECT abonnement.IDABONNEMENT, abonnement.VERDUBBELD, abonnement.STARTDATUM, abonnement.EINDDATUM, " +
+            "abonnement.ABONNEMENTSTATUS, (SELECT abonnement.IDABONNEE =(SELECT token.IDABONEE FROM token token WHERE token.TOKEN ='%1$s')) AS AbonnementEigenaar, " +
             "dienst.NAAM,dienst.IDDIENST AS IdDienst,dienst.AANBIEDERNAAM,(SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST " +
             "AND prijzen.ABONNEMENTENDUUR ='maand')MaandelijksePrijs,(SELECT dienst.DEELBAAR -(SELECT COUNT(*) FROM DEELABO DEELABO WHERE " +
             "DEELABO.IDABONNEMENT =abonnement.IDABONNEMENT))AS AboGedeeld,dienst.VERDUBBELBAAR FROM abonnement abonnement INNER JOIN dienst dienst " +
-            "ON abonnement.IDDIENST = dienst.IDDIENST WHERE abonnement.IDABONNEE %2$d AND(abonnement.IDABONNEE =( SELECT token.IDABONEE FROM token token " +
+            "ON abonnement.IDDIENST = dienst.IDDIENST WHERE abonnement.IDABONNEE = %2$d OR(abonnement.IDABONNEE =( SELECT token.IDABONEE FROM token token " +
             "WHERE token.TOKEN='%1$s') OR abonnement.IDABONNEMENT IN(SELECT abonnement.IDABONNEE FROM abonnement abonnement2 WHERE abonnement2.IDABONNEMENT IN(" +
             "SELECT deelabo.IDABONNEMENT FROM deelabo deelabo WHERE deelabo.IDABONNEE=(SELECT token.IDABONEE FROM token token WHERE token.TOKEN='%1$s'))))";
 
@@ -59,10 +60,10 @@ public class AbonnementenDAO extends MainDAO {
 
         super.selectQuery(String.format(alleAbonnementenOverzicht, token));
         ArrayList<Abonnement> abonnementArrayList = new ArrayList<>();
-        System.out.println("dit zit in de lijst:   " + abonnementArrayList);
+    //    System.out.println("dit zit in de lijst:   " + abonnementArrayList);
 
         try {
-
+          //  System.out.println(String.format(alleAbonnementenOverzicht, token));
             super.executeQuery();
 
             while (super.resultSet.next()) {
@@ -86,6 +87,7 @@ public class AbonnementenDAO extends MainDAO {
 
         try {
 
+            System.out.println(String.format(alleAbonnementenPerId, token, id));
             super.executeQuery();
 
             while (super.resultSet.next()) {
@@ -128,12 +130,11 @@ public class AbonnementenDAO extends MainDAO {
     }
 
 
-    public void updateAbonnementenVanGebruiker(){
+    public void updateAbonnementenVanGebruiker() {
         this.updateAbonnementenProefTotActief();
         this.updateAbonnementenActiefTotOpgezegd();
 
     }
-
 
 
     private Abonnement maakNewAbonnement() throws SQLException {
@@ -145,10 +146,22 @@ public class AbonnementenDAO extends MainDAO {
         String einddatum = super.resultSet.getString("einddatum");
         boolean abonnementEigenaar = super.resultSet.getBoolean("abonnementEigenaar");
 
-        return new Abonnement(idAbonnement, abonnementStatus, verdubbeld, startdatum, einddatum, abonnementEigenaar, dienstDAO.maakNewDienst());
+        return new Abonnement(idAbonnement, abonnementStatus, verdubbeld, startdatum, einddatum, abonnementEigenaar, maakNewDienst());
 
     }
 
+
+    private Dienst maakNewDienst() throws SQLException {
+
+        int idDienst = super.resultSet.getInt("IDDIENST");
+        String naam = super.resultSet.getString("naam");
+        int deelbaar = super.resultSet.getInt("AboGedeeld");
+        boolean verdubbelbaar = super.resultSet.getBoolean("verdubbelbaar");
+        String aanbiederNaam = super.resultSet.getString("aanbiederNaam");
+        double prijsVanAbonnement = super.resultSet.getDouble("MaandelijksePrijs");
+
+        return new Dienst(idDienst, naam, deelbaar, verdubbelbaar, aanbiederNaam, prijsVanAbonnement);
+    }
 
 
 }

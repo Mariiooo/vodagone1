@@ -5,24 +5,24 @@ import model.Abonnement;
 public class AbonnementenOverzichtGespecificeerd {
 
 
-    private int idAbonnement;
-    private String aanbiederNaam;
-    private String dienstNaam;
+    private int id;
+    private String aanbieder;
+    private String dienst;
     private String prijs;
-    private String startdatum;
-    private int verdubbeld;
-    private boolean deelbaarAbo;
-    private String abonnementStatus;
+    private String startDatum;
+    private int verdubbeling;
+    private boolean deelbaar;
+    private String status;
 
     public AbonnementenOverzichtGespecificeerd(Abonnement abonnement) {
-        this.idAbonnement = abonnement.getIdAbonnement();
-        this.aanbiederNaam = abonnement.getAanbieders();
-        this.dienstNaam = abonnement.getNaam();
+        this.id = abonnement.getIdAbonnement();
+        this.aanbieder = abonnement.getAanbieders();
+        this.dienst = abonnement.getNaam();
         this.prijs = abonnement.prijsAlsString();
-        this.startdatum = abonnement.getStartdatum();
-        this.verdubbeld = abonnement.getVerdubbeld();
-        this.deelbaarAbo = abonnement.isDeelbaarAbo();
-        this.abonnementStatus = abonnement.getabonnementStatus();
+        this.startDatum = abonnement.getStartdatum();
+        this.verdubbeling = abonnement.getVerdubbeld();
+        this.deelbaar = abonnement.isDeelbaarAbo();
+        this.status = abonnement.getabonnementStatus();
 
     }
 

@@ -41,7 +41,7 @@ public class AbonnementenOverzicht {
     @POST
     public Response nieuweAbonnementenToevoegen(@QueryParam("token") String token, DienstenOverzichtResponse abonnementenToevoegenResponse) {
 
-        abonnementenDAO.nieuweAbonnementenToevoegen(token, abonnementenToevoegenResponse.getIdDienst());
+        abonnementenDAO.nieuweAbonnementenToevoegen(token, abonnementenToevoegenResponse.getId());
         return Response.ok().entity(new AbonnementenResponse(abonnementenDAO.alleAbonnementen(token))).build();
 
 

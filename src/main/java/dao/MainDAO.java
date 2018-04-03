@@ -20,7 +20,7 @@ public abstract class MainDAO {
     }
 
 
-    protected void executeQuery() throws SQLException { //connectAndSelect()
+    protected void executeQuery() throws SQLException {
 
         this.statement = getConnection().createStatement();
         this.resultSet = this.statement.executeQuery(this.query);
@@ -32,7 +32,7 @@ public abstract class MainDAO {
     }
 
 
-    protected void executeUpdate() { //connectAndManipulate()
+    protected void executeUpdate() {
         try {
             this.statement = connection.createStatement();
             this.statement.executeUpdate(this.query);

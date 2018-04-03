@@ -2,6 +2,7 @@ package dao;
 
 import model.Dienst;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class DienstDAO extends MainDAO {
 
             while (super.resultSet.next()) {
 
-                Dienst dienst = maakNewDienst();
+                Dienst dienst = maakNewDienst(super.resultSet);
                 dienstArrayList.add(dienst);
             }
 
@@ -37,14 +38,14 @@ public class DienstDAO extends MainDAO {
     }
 
 
-    protected Dienst maakNewDienst() throws SQLException {
+    protected Dienst maakNewDienst(ResultSet resultSet) throws SQLException {
 
-        int idDienst = super.resultSet.getInt("idDienst");
-        String naam = super.resultSet.getString("naam");
-        int deelbaar = super.resultSet.getInt("deelbaar");
-        boolean verdubbelbaar = super.resultSet.getBoolean("verdubbelbaar");
-        String aanbiederNaam = super.resultSet.getString("aanbiederNaam");
-        double prijsVanAbonnement = super.resultSet.getDouble("prijsVanAbonnement");
+        int idDienst = resultSet.getInt("IDDIENST");
+        String naam = resultSet.getString("naam");
+        int deelbaar = resultSet.getInt("AboGedeeld");
+        boolean verdubbelbaar = resultSet.getBoolean("verdubbelbaar");
+        String aanbiederNaam = resultSet.getString("aanbiederNaam");
+        double prijsVanAbonnement = resultSet.getDouble("MaandelijksePrijs");
 
         return new Dienst(idDienst, naam, deelbaar, verdubbelbaar, aanbiederNaam, prijsVanAbonnement);
     }

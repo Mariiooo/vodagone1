@@ -25,8 +25,8 @@ public class UserDAO extends MainDAO {
 
     public LoginAndToken getNewUser(String gebruikersnaam, String wachtwoord) {
 
-        tokenDAO.deleteUserToken();  //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
-        abonnementenDAO.updateAbonnementenVanGebruiker(); //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
+       // tokenDAO.deleteUserToken();  //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
+      //  abonnementenDAO.updateAbonnementenVanGebruiker(); //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
 
 
         super.selectQuery(String.format(SelectUserquery, gebruikersnaam, wachtwoord));
