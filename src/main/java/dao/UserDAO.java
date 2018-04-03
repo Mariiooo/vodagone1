@@ -1,93 +1,63 @@
 package dao;
 
-import model.User;
 
-import java.sql.ResultSet;
+import model.Abonnee;
+import model.LoginAndToken;
+
+import javax.inject.Inject;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
-import java.util.List;
+
 
 public class UserDAO extends MainDAO {
+
+
+    private static final String SelectUserquery = "SELECT IDABONNEE, NAAM, EMAIL,( SELECT token.TOKEN FROM token token WHERE token.IDABONEE = abonnee.IDABONNEE) AS token FROM abonnee abonnee WHERE IDABONNEE = ( SELECT IDABONEE FROM gebruiker WHERE GEBRUIKERSNAAM = '%1$s' AND WACHTWOORD = '%2$s') ";
 
     public UserDAO() {
         super();
     }
 
-    protected List<User> executeGetQuery(String query) {
-        List<User> users = new LinkedList<User>();
+
+    public LoginAndToken getNewUser(String gebruikersnaam, String wachtwoord) {
+
+     //   new TokenDAO().deleteUserToken();  //  Werkt nog niet helemaal.. morgen aan denis vragen waarom die nullpointer krijgt.
+    //    new AbonnementenDAO().updateAbonnementenVanGebruiker();
+
+
+        super.selectQuery(String.format(SelectUserquery, gebruikersnaam, wachtwoord));
+        LoginAndToken loginAndToken = null;
 
         try {
+            super.executeQuery();
 
-            Statement statement = getConnection().createStatement();
-            System.out.println(" statement  connected??  " + statement);
-            ResultSet resultSet = statement.executeQuery(query);
+            while (super.resultSet.next()) {
 
-            User user;
-            while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("idUser"));
-                user.setUser(resultSet.getString("name"));
-                users.add(user);
+                Abonnee abonnee = maakNewAbonnee();
+                String token = super.resultSet.getString("token");
+                loginAndToken = new LoginAndToken(abonnee, token);
             }
-            resultSet.close();
-            statement.close();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users;
-    }
+        finally {
+            super.endAllConnections();
+        }
 
-
-    public List<User> getAllUsers() {
-
-        String query = "SELECT * FROM users";
-        return executeGetQuery(query);
+        return loginAndToken;
 
     }
 
 
-    public int getUserIdAndName(int idUser, String name){
-        String query = "SELECT idUser, name FROM users WHERE name = '" +  name  + "' AND idUser = " + idUser;
-        return executeGetQuery(query).get(0).getId();
+    private Abonnee maakNewAbonnee() throws SQLException {
+
+        int idAbonnee = resultSet.getInt("idAbonnee");
+        String naam = resultSet.getString("naam");
+        String email = resultSet.getString("email");
+        return new Abonnee(idAbonnee, naam, email);
+
     }
-//
-//    public String getUsername(int idUser) {
-//        String query = "SELECT name FROM users WHERE id = '" + idUser + "'";
-//        return executeGetQuery(query).get(0).getUsername();
-//    }
-
-    public String getPassword(String password) {
-        String query = "SELECT idUser, password FROM users WHERE password = '" +  password;
-        return executeGetQuery(query).get(0).getUsername();
-    }
-
-
-
-//    public void addNewUser(String userName) {
-//        String query = "INSERT INTO Users (username, password) VALUES ('" + userName + "', 'password')";
-//        super.executeUpdate(query);
-//    }
-//
-//
-//    public void deleteUser(String idUser){
-//        String query = "DELETE FROM user WHERE id = " + idUser;
-//        super.executeUpdate(query);
-//
-//
-//    }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="vodagone.mariuszblautzik" />
+        <module name="deavodagone1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="vodagone.mariuszblautzik" target="1.8" />
+      <module name="deavodagone1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
