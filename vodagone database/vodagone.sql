@@ -39,7 +39,7 @@ ENGINE = InnoDB DEFAULT CHARSET=latin1;
 CREATE TABLE IF NOT EXISTS `vodagonedb`.`Subscription` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `aanbieder` VARCHAR(45) NOT NULL,
-  `dienst` VARCHAR(45) NOT NULL,
+  `id` VARCHAR(45) NOT NULL,
   `prijs` DOUBLE NOT NULL,
   `startDatum` DATE NOT NULL,
   `verdubbeling` VARCHAR(45) NOT NULL,

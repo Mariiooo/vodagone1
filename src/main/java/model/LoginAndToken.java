@@ -2,7 +2,6 @@ package model;
 
 import dao.TokenDAO;
 
-import javax.inject.Inject;
 import java.sql.SQLException;
 
 public class LoginAndToken {
@@ -10,21 +9,19 @@ public class LoginAndToken {
     private Abonnee abonnee;
     private String token;
 
-
-    public LoginAndToken(Abonnee abonnee, String token) throws SQLException {
+    public LoginAndToken(Abonnee abonnee, String token) {
 
         this.abonnee = abonnee;
-        if(token == null){
+        if (token == null) {
             this.createNewToken();
             return;
         }
         this.token = token;
-
     }
 
-    public void createNewToken() throws SQLException {
+    public void createNewToken() {
         this.token = Token.generateToken();
-       new TokenDAO().updateOrInsertUserToken(this.token, this.abonnee.getIdAbonnee());
+        new TokenDAO().updateOrInsertUserToken(this.token, this.abonnee.getId());
     }
 
 
@@ -35,7 +32,4 @@ public class LoginAndToken {
     public String getGebruikersnaam() {
         return abonnee.getNaam();
     }
-
-
-
 }

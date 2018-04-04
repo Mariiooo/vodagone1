@@ -1,12 +1,9 @@
 package endpoints;
 
-/// Tessttt commiitttt
-//,,,  hi
 import dao.AbonnementenDAO;
 import responses.AbonnementenOverzichtGespecificeerd;
 import responses.AbonnementenResponse;
 import responses.DienstenOverzichtResponse;
-
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -26,7 +23,7 @@ public class AbonnementenOverzicht {
     @Path("")
     @GET
     public Response toonAlleAbonnementenVanIngelogdeGebruiker(@QueryParam("token") String token) {
-        return Response.ok().entity(new AbonnementenResponse(abonnementenDAO.alleAbonnementen(token))).build();
+        return Response.ok().entity(new AbonnementenResponse(abonnementenDAO.alleAbonnementenOverzicht(token))).build();
     }
 
 
@@ -34,39 +31,31 @@ public class AbonnementenOverzicht {
     @GET
     public Response toonAlleAbonnementenOpHunId(@PathParam("id") int id, @QueryParam("token") String token) {
 
-        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(token, id))).build();
-
+        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(id, token))).build();
     }
 
     @Path("")
     @POST
     public Response nieuweAbonnementenToevoegen(@QueryParam("token") String token, DienstenOverzichtResponse abonnementenToevoegenResponse) {
 
-        abonnementenDAO.nieuweAbonnementenToevoegen(token, abonnementenToevoegenResponse.getId());
-        return Response.ok().entity(new AbonnementenResponse(abonnementenDAO.alleAbonnementen(token))).build();
-
-
+        abonnementenDAO.toevoegenAbonnementen(token, abonnementenToevoegenResponse.getId());
+        return Response.ok().entity(new AbonnementenResponse(abonnementenDAO.alleAbonnementenOverzicht(token))).build();
     }
 
 
     @Path("/{id}")
     @DELETE
-    public Response bestaandeAbonnementenVerwijderen(@PathParam("id") int id, String token) {
+    public Response bestaandeAbonnementenVerwijderen(@PathParam("id") int id, @QueryParam("token") String token) {
 
         abonnementenDAO.abonnementenOpzeggen(id, token);
-        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(token, id))).build();
-
-
+        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(id, token))).build();
     }
 
     @Path("/{id}")
     @POST
-    public Response bestaandeAbonnementenVerdubbellen(@PathParam("id") int id, String token) {
+    public Response bestaandeAbonnementenVerdubbellen(@PathParam("id") int id, @QueryParam("token") String token) {
 
         abonnementenDAO.updateAbonnementenVerdubelling(id, token);
-        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(token, id))).build();
-
+        return Response.ok().entity(new AbonnementenOverzichtGespecificeerd(abonnementenDAO.alleAbonnementenPerId(id, token))).build();
     }
-
-
 }

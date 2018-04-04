@@ -2,115 +2,96 @@ package model;
 
 public class Abonnement {
 
-    private int idAbonnement;
-    private String abonnementStatus;
-    private int verdubbeld;
-    private String startdatum;
-    private String einddatum;
-    private Dienst idDienst;
+    public static final String VERDUBBELD = "verdubbeld";
+    public static final String STANDAARD = "standaard";
+    public static final String NIET_BESCHIKBAAR = "niet-beschikbaar";
+    public static final String € = "€";
+    public static final String PER_MAAND = "0 per maand";
+    public static final String OPGEZEGD = "opgezegd";
+    public static final double ZERO_ZERO = 0.00;
+
+    private int id;
+    private String status;
+    private String verdubbeling;
+    private String startDatum;
+    private Dienst dienst;
     private double abonnementVerdubbelling = 1.5;
     private boolean abonnementEigenaar;
 
 
-    public Abonnement(int idAbonnement, String abonnementStatus, int verdubbeld, String startdatum, String einddatum, boolean abonnementEigenaar, Dienst idDienst) {
-        this.idAbonnement = idAbonnement;
-        this.abonnementStatus = abonnementStatus;
-        this.verdubbeld = verdubbeld;
-        this.startdatum = startdatum;
-        this.einddatum = einddatum;
+    public Abonnement(int id, String status, String startDatum, boolean abonnementEigenaar, Dienst dienst, boolean verdubbeld) {
+        this.id = id;
+        this.status = status;
+        if (dienst.getVerdubbelbaar()) {
+            if (verdubbeld) {
+                this.verdubbeling = VERDUBBELD;
+            } else {
+                this.verdubbeling = STANDAARD;
+            }
+        } else {
+            this.verdubbeling = NIET_BESCHIKBAAR;
+        }
+        this.startDatum = startDatum;
         this.abonnementEigenaar = abonnementEigenaar;
-        this.idDienst = idDienst;
+        this.dienst = dienst;
 
     }
 
 
-    public int getIdAbonnement() {
-        return idAbonnement;
+    public int getId() {
+        return this.id;
     }
 
     public String getNaam() {
-        return idDienst.getNaam();
+        return dienst.getDienst();
     }
 
     public String getAanbieders() {
-        return idDienst.getAanbiederNaam();
+        return dienst.getAanbieder();
     }
-
-
 
 
     public boolean isAbonnementEigenaar() {
         return this.abonnementEigenaar;
     }
 
-    public String prijsAlsString(){
+    public String prijsAlsString() {
         double prijs = this.getPrijs();
-        Double doubleInstance = new Double(prijs);
-        String numberAsString = doubleInstance.toString();
-
-        return  numberAsString;
-
+        return € + prijs + PER_MAAND;
     }
 
-    public boolean isDeelbaarAbo(){
+    public boolean isDeelbaarAbo() {
 
-        return this.abonnementEigenaar && idDienst.getDeelbaar() > 0;
-
-    }
-
-    public void setIdAbonnement(int idAbonnement) {
-        this.idAbonnement = idAbonnement;
-    }
-
-    public String getabonnementStatus() {
-        return abonnementStatus;
-    }
-
-
-    public int getVerdubbeld() {
-        return verdubbeld;
-    }
-
-    public void setVerdubbeld(int verdubbeld) {
-        this.verdubbeld = verdubbeld;
-    }
-
-    public String getStartdatum() {
-        return startdatum;
-    }
-
-    public void setStartdatum(String startdatum) {
-        this.startdatum = startdatum;
-    }
-
-    public String getEinddatum() {
-        return einddatum;
-    }
-
-    public void setEinddatum(String einddatum) {
-        this.einddatum = einddatum;
-    }
-
-    public Dienst getIdDienst() {
-        return idDienst;
-    }
-
-    public void setIdDienst(Dienst idDienst) {
-        this.idDienst = idDienst;
+        return this.abonnementEigenaar && dienst.getDeelbaar() > 0;
     }
 
     public double getPrijs() {
 
-        double prijs = 0.0;
-        if (abonnementStatus.equals(verdubbeld)) {
-            prijs += idDienst.getPrijsVanAbonnement() * abonnementVerdubbelling;
-        } else {
-            prijs += idDienst.getPrijsVanAbonnement();
+        double prijs = ZERO_ZERO;
+        if (!this.status.equals(OPGEZEGD)) {
 
+            switch (verdubbeling){
+                case VERDUBBELD:
+                prijs += dienst.getPrijsPerMaand() * abonnementVerdubbelling;
+                break;
+            default:
+                prijs += dienst.getPrijsPerMaand();
+                break;
+            }
         }
-
         return prijs;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public String getVerdubbeling() {
+        return this.verdubbeling;
+    }
+
+    public String getStartDatum() {
+        return this.startDatum;
+    }
 
 }

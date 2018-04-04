@@ -9,14 +9,14 @@ import java.util.ArrayList;
 public class DienstDAO extends MainDAO {
 
 
-    private static final String alleDienstenOverzicht = "SELECT dienst.IDDIENST, dienst.AANBIEDERNAAM, dienst.NAAM, " +
-            "(SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST AND prijzen.ABONNEMENTENDUUR " +
-            "= 'maand' )MaandelijkseKosten, dienst.DEELBAAR, dienst.AANBIEDERNAAM FROM dienst dienst";
+    private static final String ALLE_DIENSTEN_OVERZICHT_QUERY = "SELECT dienst.IDDIENST, dienst.AANBIEDERNAAM, dienst.VERDUBBELBAAR, " +
+            "dienst.NAAM, ( SELECT prijzen.PRIJS FROM prijzen prijzen WHERE prijzen.IDDIENST = dienst.IDDIENST " +
+            "AND prijzen.ABONNEMENTENDUUR = 'maand' ) MaandelijkseKosten, dienst.DEELBAAR FROM dienst dienst";
 
 
-    public ArrayList<Dienst> alleDiensten() {
+    public ArrayList<Dienst> alleDienstenOverzicht() {
 
-        super.selectQuery(String.format(alleDienstenOverzicht));
+        super.selectQuery(String.format(ALLE_DIENSTEN_OVERZICHT_QUERY));
         ArrayList<Dienst> dienstArrayList = new ArrayList<>();
 
         try {
@@ -24,32 +24,28 @@ public class DienstDAO extends MainDAO {
 
             while (super.resultSet.next()) {
 
-                Dienst dienst = maakNewDienst(super.resultSet);
+                Dienst dienst = maakNieuweDienst(super.resultSet);
                 dienstArrayList.add(dienst);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             super.endAllConnections();
         }
-
         return dienstArrayList;
     }
 
 
-    protected Dienst maakNewDienst(ResultSet resultSet) throws SQLException {
+    protected Dienst maakNieuweDienst(ResultSet resultSet) throws SQLException {
 
         int idDienst = resultSet.getInt("IDDIENST");
-        String naam = resultSet.getString("naam");
-        int deelbaar = resultSet.getInt("AboGedeeld");
+        String naam = resultSet.getString("NAAM");
+        int deelbaar = resultSet.getInt("DEELBAAR");
         boolean verdubbelbaar = resultSet.getBoolean("verdubbelbaar");
-        String aanbiederNaam = resultSet.getString("aanbiederNaam");
-        double prijsVanAbonnement = resultSet.getDouble("MaandelijksePrijs");
+        String aanbiederNaam = resultSet.getString("AANBIEDERNAAM");
+        double prijsVanAbonnement = resultSet.getDouble("MaandelijkseKosten");
 
         return new Dienst(idDienst, naam, deelbaar, verdubbelbaar, aanbiederNaam, prijsVanAbonnement);
     }
-
-
 }
 

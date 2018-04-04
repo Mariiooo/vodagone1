@@ -17,7 +17,6 @@ VALUE ('Vodafone');
 /*==============================================================*/
 /* Table: ABONNEE                                               */
 /*==============================================================*/
-
 INSERT INTO ABONNEE(NAAM, EMAIL)
 VALUES ('Mariusz Blautzik', 'djmariioo@gmail.com');
 
@@ -29,6 +28,18 @@ VALUES ('Henk Bonats', 'HenkTank@live.com');
 
 INSERT INTO ABONNEE(NAAM, EMAIL)
 VALUES ('Lena del Ray', 'LenaLoveYu@live.com');
+
+INSERT INTO ABONNEE(NAAM, EMAIL)
+VALUES ('Tito Bino', 'titotitu@live.com');
+
+INSERT INTO ABONNEE(NAAM, EMAIL)
+VALUES ('Aang Avatar', 'avataraangisalive@hotmail.com');
+
+INSERT INTO ABONNEE(NAAM, EMAIL)
+VALUES ('Cees Groot', 'ceesgroot@gmail.com');
+
+INSERT INTO ABONNEE(NAAM, EMAIL)
+VALUES ('Robert Kares', 'r.kares@live.com');
 
 
 /*==============================================================*/
@@ -87,22 +98,22 @@ VALUES ('jaar');
 /*==============================================================*/
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 1, 1, 'jaar', 'actief', 0, '2018-03-01', NULL);
+VALUES( 1, 1, 'jaar', 'actief', 'standaard', '2018-03-01', NULL);
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 1, 2, 'maand', 'proef', 0, '2018-04-01', '2018-05-01');
+VALUES( 1, 2, 'maand', 'proef', 'standaard', '2018-04-01', '2018-05-01');
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 1, 3, 'half jaar', 'opgezegd', 1, '2017-07-01', '2018-05-01');
+VALUES( 1, 3, 'half jaar', 'opgezegd', 'verdubbeld', '2017-07-01', '2018-05-01');
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 2, 4, 'jaar', 'actief', 0, '2018-02-01', NULL);
+VALUES( 2, 4, 'jaar', 'actief', 'standaard', '2018-02-01', NULL);
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 2, 5, 'jaar', 'actief', 0, '2018-01-01', NULL);
+VALUES( 2, 5, 'jaar', 'actief', 'standaard', '2018-01-01', NULL);
 
 INSERT INTO ABONNEMENT( IDABONNEE, IDDIENST, ABONNEMENTENDUUR, ABONNEMENTSTATUS, VERDUBBELD, STARTDATUM, EINDDATUM)
-VALUES( 3, 6, 'jaar', 'actief', 0, '2018-01-01', NULL);
+VALUES( 3, 6, 'jaar', 'actief', 'standaard', '2018-01-01', NULL);
 
 
 
@@ -112,14 +123,9 @@ VALUES( 3, 6, 'jaar', 'actief', 0, '2018-01-01', NULL);
 /* Table: DEELABO                                  */
 /*==============================================================*/
 
-INSERT INTO DEELABO( IDABONNEE,IDABONNEMENT)
-VALUES ( 1,5);
- 
-INSERT INTO DEELABO( IDABONNEE,IDABONNEMENT)
-VALUES ( 1,6);
 
-INSERT INTO DEELABO( IDABONNEE,IDABONNEMENT)
-VALUES ( 2,6);
+
+
 
 
 /*==============================================================*/
@@ -135,6 +141,7 @@ VALUES (1, 'half jaar', 25.00);
 INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
 VALUES (1, 'jaar', 45.00);
 
+
 INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
 VALUES (2, 'maand', 10.00);
 
@@ -144,6 +151,7 @@ VALUES (2, 'half jaar', 50.00);
 INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
 VALUES (2, 'jaar', 90.00);
 
+
 INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
 VALUES (3, 'maand', 40.00);
 
@@ -152,6 +160,36 @@ VALUES (3, 'half jaar', 200.00);
 
 INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
 VALUES (3, 'jaar', 360.00);
+
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (4, 'maand', 30.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (4, 'half jaar', 150.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (4, 'jaar', 270.00);
+
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (5, 'maand', 10.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (5, 'half jaar', 50.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (5, 'jaar', 90.00);
+
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (6, 'maand', 15.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (6, 'half jaar', 75.00);
+
+INSERT INTO PRIJZEN(IDDIENST, ABONNEMENTENDUUR, PRIJS)
+VALUES (6, 'jaar', 135.00);
 
 
 /*==============================================================*/
@@ -170,6 +208,18 @@ VALUES ('6564-33332333-13', 3, '2018-03-31');
 INSERT INTO TOKEN ( TOKEN,IDABONEE, VERLOOPDATUM) 
 VALUES ('1444-414124-5513', 4, '2018-04-05');
 
+INSERT INTO TOKEN ( TOKEN,IDABONEE, VERLOOPDATUM) 
+VALUES ('5151435053', 5, '2018-01-01');
+
+INSERT INTO TOKEN ( TOKEN,IDABONEE, VERLOOPDATUM) 
+VALUES ('145415-2343-24', 6, '2018-01-05');
+
+INSERT INTO TOKEN ( TOKEN,IDABONEE, VERLOOPDATUM) 
+VALUES ('5553-4443-4432', 7, '2018-01-05');
+
+INSERT INTO TOKEN ( TOKEN,IDABONEE, VERLOOPDATUM) 
+VALUES ('1666-234343', 8, '2018-09-05');
+
 /*==============================================================*/
 /* Table: GEBRUIKER                                                  */
 /*==============================================================*/
@@ -186,4 +236,14 @@ VALUES( 'Henk', 3, 'tank');
 INSERT INTO GEBRUIKER( GEBRUIKERSNAAM, IDABONEE, WACHTWOORD)
 VALUES( 'Lena', 4, 'iloveit');
 
+INSERT INTO GEBRUIKER( GEBRUIKERSNAAM, IDABONEE, WACHTWOORD)
+VALUES ('Tito Bino', 5, 'titotitu');
 
+INSERT INTO GEBRUIKER( GEBRUIKERSNAAM, IDABONEE, WACHTWOORD)
+VALUES ('Aang Avatar', 6, 'avataraangisalive');
+
+INSERT INTO GEBRUIKER( GEBRUIKERSNAAM, IDABONEE, WACHTWOORD)
+VALUES ('Cees Groot', 7, 'ceesgroot');
+
+INSERT INTO GEBRUIKER( GEBRUIKERSNAAM, IDABONEE, WACHTWOORD)
+VALUES ('Robert Kares', 8, 'r.kares');

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @Consumes(MediaType.APPLICATION_JSON)
 public class DienstenOverzicht {
 
-
     @Inject
     DienstDAO dienstDAO;
 
@@ -27,21 +26,11 @@ public class DienstenOverzicht {
 
         ArrayList<DienstenOverzichtResponse> dienstenOverzichtResponses = new ArrayList<>();
 
-        for(Dienst dienst: dienstDAO.alleDiensten()){
-            if(dienst.getAanbiederNaam().contains(filter) || dienst.getNaam().contains(filter))
-                dienstenOverzichtResponses.add(new DienstenOverzichtResponse(dienst.getIdDienst(), dienst.getNaam(), dienst.getAanbiederNaam()));
-
-
+        for(Dienst dienst: dienstDAO.alleDienstenOverzicht()){
+            if(dienst.getAanbieder().contains(filter) || dienst.getDienst().contains(filter))
+                dienstenOverzichtResponses.add(new DienstenOverzichtResponse(dienst.getId(),  dienst.getAanbieder(), dienst.getDienst()));
         }
-
         return Response.ok().entity(dienstenOverzichtResponses).build();
-
     }
-
-
-
-
-
-
 
 }

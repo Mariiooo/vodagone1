@@ -37,7 +37,7 @@ ENGINE=InnoDB DEFAULT CHARSET=latin1;
 CREATE TABLE `Abonnementen` (
   `idAbonnementen` INT NOT NULL AUTO_INCREMENT,
   `aanbieder` VARCHAR(45) NOT NULL,
-  `dienst` VARCHAR(45) NOT NULL,
+  `id` VARCHAR(45) NOT NULL,
   `prijs` DOUBLE NOT NULL,
   `startDatum` DATE NOT NULL,
   `verdubbeling` VARCHAR(45) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `AbonneesAbonnement` (
   `idAbonnementen` INT NOT NULL,
   `idAbonnees` INT NOT NULL,
   `aanbieder` VARCHAR(45) NOT NULL,
-  `dienst` VARCHAR(45) NOT NULL,
+  `id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idAbonneesAbonnement`, `idAbonnementen`, `idAbonnees`))
 ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -99,10 +99,10 @@ INSERT INTO `users`(`idUser`, `name`, `password`, `profilename`) VALUES (1,'Mari
 INSERT INTO `users`(`idUser`, `name`, `password`, `profilename`) VALUES (2,'Henk','test','Henk Brouwer')
 
 
-INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `dienst`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (1, 'vodafone', 'Mobiele telefonie 100', 5, '2017-01-01', 'standaard', 0, 'actief')
-INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `dienst`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (2, 'vodafone', 'Mobiele telefonie 250', 5, '2018-09-01', 'standaard', 0, 'opgezegd')
-INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `dienst`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (3, 'ziggo', 'Kabel-internet (download 300 Mbps)', 5, '2017-06-01', 'standaard', 1, 'proef')
-INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `dienst`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (4, 'ziggo', 'Kabel-internet (download 5000 Mbps)', 5, '2018-07-01', 'standaard', 1, 'actief')
+INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `id`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (1, 'vodafone', 'Mobiele telefonie 100', 5, '2017-01-01', 'standaard', 0, 'actief')
+INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `id`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (2, 'vodafone', 'Mobiele telefonie 250', 5, '2018-09-01', 'standaard', 0, 'opgezegd')
+INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `id`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (3, 'ziggo', 'Kabel-internet (download 300 Mbps)', 5, '2017-06-01', 'standaard', 1, 'proef')
+INSERT INTO `abonnementen`(`idAbonnementen`, `aanbieder`, `id`, `prijs`, `startDatum`, `verdubbeling`, `deelbaar`, `status`) VALUES (4, 'ziggo', 'Kabel-internet (download 5000 Mbps)', 5, '2018-07-01', 'standaard', 1, 'actief')
 
 
 INSERT INTO `abonnees`(`idAbonnees`, `name`, `email`) VALUES (1, 'Mariusz Blautzik', 'mariioo@gmail.com')
@@ -126,13 +126,13 @@ INSERT INTO Users(userName, userPassword, profilename)
 VALUES ( 'Henk' , 'test', 'Meron Brouwer')
 GO
 
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'vodafone', 'Mobiele telefonie 100', 5, '2017-01-01', 'standaard', 0, 'actief')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'vodafone', 'Mobiele telefonie 250', 5, '2018-09-01', 'standaard', 0, 'opgezegd')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'ziggo', 'Kabel-internet (download 300 Mbps)', 5, '2017-06-01', 'standaard', 1, 'proef')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'ziggo', 'Kabel-internet (download 5000 Mbps)', 5, '2018-07-01', 'standaard', 1, 'actief')
 GO
 

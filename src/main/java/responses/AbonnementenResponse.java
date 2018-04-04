@@ -7,20 +7,17 @@ import java.util.ArrayList;
 public class AbonnementenResponse {
 
     private ArrayList<AbonnementOverzichtResponse> abonnementen;
-    private double totalprice;
+    private double totalPrice;
 
-    public AbonnementenResponse(ArrayList<Abonnement> abonnementen){
+    public AbonnementenResponse(ArrayList<Abonnement> abonnementen) {
         this.abonnementen = new ArrayList<>();
-        this.totalprice = 0.00;
+        this.totalPrice = 0.00;
 
-        for(Abonnement abonnement: abonnementen){
-            if( abonnement.isAbonnementEigenaar())
-                    this.totalprice += abonnement.getPrijs();
+        for (Abonnement abonnement : abonnementen) {
+            if (abonnement.isAbonnementEigenaar()) {
+                this.totalPrice += abonnement.getPrijs();
+            }
             this.abonnementen.add(new AbonnementOverzichtResponse(abonnement));
         }
-
-
     }
-
-
 }

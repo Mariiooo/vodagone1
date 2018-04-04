@@ -19,18 +19,18 @@ public abstract class MainDAO {
         this.connection = DbConnection.getConnection();
     }
 
-
-    protected void executeQuery() throws SQLException {
-
-        this.statement = getConnection().createStatement();
-        this.resultSet = this.statement.executeQuery(this.query);
+    public Connection getConnection() {
+        return this.connection;
     }
 
-
-    protected void selectQuery(String query) {  //setQuery()
+    protected void selectQuery(String query) {
         this.query = query;
     }
 
+    protected void executeQuery() throws SQLException {
+        this.statement = getConnection().createStatement();
+        this.resultSet = this.statement.executeQuery(this.query);
+    }
 
     protected void executeUpdate() {
         try {
@@ -39,23 +39,35 @@ public abstract class MainDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             this.endAllConnections();
         }
     }
 
-    protected void endAllConnections()  {
-        try {
-            this.statement.close();
-            this.resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    protected void endAllConnections() {
+        this.closeStatement();
+        this.closeResultSet();
+    }
+
+    private void closeStatement() {
+        if (this.statement != null) {
+            try {
+                this.statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            this.statement = null;
         }
     }
 
-
-    public Connection getConnection() {
-        return this.connection;
+    private void closeResultSet() {
+        if (this.resultSet != null) {
+            try {
+                this.resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            this.resultSet = null;
+        }
     }
 }

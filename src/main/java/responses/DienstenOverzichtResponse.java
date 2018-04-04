@@ -6,17 +6,20 @@ public class DienstenOverzichtResponse {
     private String aanbieder;
     private String dienst;
 
-    public DienstenOverzichtResponse(int idDienst, String aanbiedernNaam, String dienstNaam){
 
-        this.id = idDienst;
-        this.aanbieder = aanbiedernNaam;
-        this.dienst = dienstNaam;
+    public DienstenOverzichtResponse(){
+
+    }
+
+    public DienstenOverzichtResponse(int id, String aanbieder, String dienst)
+    {
+        this.id = id;
+        this.aanbieder = aanbieder;
+        this.dienst = dienst;
     }
 
     public int getId()
     {
         return this.id;
     }
-
-
 }

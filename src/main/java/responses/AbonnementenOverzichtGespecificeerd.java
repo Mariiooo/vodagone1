@@ -10,19 +10,19 @@ public class AbonnementenOverzichtGespecificeerd {
     private String dienst;
     private String prijs;
     private String startDatum;
-    private int verdubbeling;
+    private String verdubbeling;
     private boolean deelbaar;
     private String status;
 
     public AbonnementenOverzichtGespecificeerd(Abonnement abonnement) {
-        this.id = abonnement.getIdAbonnement();
+        this.id = abonnement.getId();
         this.aanbieder = abonnement.getAanbieders();
         this.dienst = abonnement.getNaam();
         this.prijs = abonnement.prijsAlsString();
-        this.startDatum = abonnement.getStartdatum();
-        this.verdubbeling = abonnement.getVerdubbeld();
+        this.startDatum = abonnement.getStartDatum();
+        this.verdubbeling = abonnement.getVerdubbeling();
         this.deelbaar = abonnement.isDeelbaarAbo();
-        this.status = abonnement.getabonnementStatus();
+        this.status = abonnement.getStatus();
 
     }
 

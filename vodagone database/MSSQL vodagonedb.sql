@@ -18,7 +18,7 @@ CREATE TABLE Users (
 CREATE TABLE Abonnementen (
   idAbonnementen INT NOT NULL IDENTITY(1,1),
   aanbieder VARCHAR(45) NOT NULL,
-  dienst VARCHAR(45) NOT NULL,
+  id VARCHAR(45) NOT NULL,
   prijs MONEY NOT NULL,
   startDatum DATE NOT NULL,
   verdubbeling VARCHAR(45) NOT NULL,
@@ -58,13 +58,13 @@ INSERT INTO Users(userName, userPassword, profilename)
 VALUES ( 'Henk' , 'test', 'Meron Brouwer')
 GO
 
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'vodafone', 'Mobiele telefonie 100', 5, '2017-01-01', 'standaard', 0, 'actief')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'vodafone', 'Mobiele telefonie 250', 5, '2018-09-01', 'standaard', 0, 'opgezegd')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'ziggo', 'Kabel-internet (download 300 Mbps)', 5, '2017-06-01', 'standaard', 1, 'proef')
-INSERT INTO Abonnementen(aanbieder, dienst, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
+INSERT INTO Abonnementen(aanbieder, id, prijs, startDatum, verdubbeling, deelbaar, aboStatus)
 VALUES ( 'ziggo', 'Kabel-internet (download 5000 Mbps)', 5, '2018-07-01', 'standaard', 1, 'actief')
 GO
 

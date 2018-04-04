@@ -10,7 +10,7 @@ public class AbonnementOverzichtResponse {
 
 
     public AbonnementOverzichtResponse(Abonnement abonnement){
-        this.id = abonnement.getIdAbonnement();
+        this.id = abonnement.getId();
         this.aanbieder = abonnement.getAanbieders();
         this.dienst = abonnement.getNaam();
 

@@ -2,68 +2,47 @@ package model;
 
 public class Dienst {
 
-    private int idDienst;
-    private String naam;
+    private int id;
+    private String dienst;
     private int deelbaar;
     private boolean verdubbelbaar;
-    private String aanbiederNaam;
-    private double prijsVanAbonnement;
+    private String aanbieder;
+    private double prijsPerMaand;
 
 
-    public Dienst(int idDienst, String naam, int deelbaar, boolean verdubbelbaar, String aanbiederNaam, double prijsVanAbonnement) {
+    public Dienst(int id, String dienst, int deelbaar, boolean verdubbelbaar, String aanbieder, double prijsPerMaand) {
 
-        this.idDienst = idDienst;
-        this.naam = naam;
+        this.id = id;
+        this.dienst = dienst;
         this.deelbaar = deelbaar;
         this.verdubbelbaar = verdubbelbaar;
-        this.aanbiederNaam = aanbiederNaam;
-        this.prijsVanAbonnement = prijsVanAbonnement;
+        this.aanbieder = aanbieder;
+        this.prijsPerMaand = prijsPerMaand;
 
     }
 
-    public String getAanbiederNaam() {
-        return aanbiederNaam;
+    public int getId() {
+        return id;
     }
 
-
-    public int getIdDienst() {
-        return idDienst;
-    }
-
-    public void setIdDienst(int idDienst) {
-        this.idDienst = idDienst;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public String getDienst() {
+        return dienst;
     }
 
     public int getDeelbaar() {
         return deelbaar;
     }
 
-    public void setDeelbaar(int deelbaar) {
-        this.deelbaar = deelbaar;
-    }
-
-    public boolean isVerdubbelbaar() {
+    public boolean getVerdubbelbaar()
+    {
         return verdubbelbaar;
     }
 
-    public void setVerdubbelbaar(boolean verdubbelbaar) {
-        this.verdubbelbaar = verdubbelbaar;
+    public String getAanbieder() {
+        return aanbieder;
     }
 
-
-    public double getPrijsVanAbonnement() {
-        return prijsVanAbonnement;
-    }
-
-    public void setPrijsVanAbonnement(double prijsVanAbonnement) {
-        this.prijsVanAbonnement = prijsVanAbonnement;
+    public double getPrijsPerMaand() {
+        return prijsPerMaand;
     }
 }
